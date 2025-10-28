@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ecologia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <meta name="description" content="Um site educativo e visual sobre ecologia — conceitos, exemplos, aplicações e imagens." />
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#94a3b8; --accent1:#34d399; --accent2:#60a5fa; --glass: rgba(255,255,255,0.04);
+      --maxw:1100px; --radius:16px; --glass-2: rgba(255,255,255,0.03);
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;color:#e6eef8;background:linear-gradient(180deg,#041022 0%, #071427 40%);}
+    .wrap{max-width:var(--maxw);margin:36px auto;padding:28px;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 6px 30px rgba(2,6,23,0.6);}
+
+    header{display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{width:58px;height:58px;border-radius:12px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:grid;place-items:center;color:#04202b;font-weight:800;box-shadow:0 6px 18px rgba(96,165,250,0.08)}
+    .brand h1{margin:0;font-size:20px}
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
+
+    nav{display:flex;gap:10px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px;font-size:14px}
+    nav a:hover{background:var(--glass);color:#fff}
+
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:24px;margin-top:20px}
+    .card{background:linear-gradient(180deg,var(--glass),var(--glass-2));padding:18px;border-radius:var(--radius);backdrop-filter: blur(6px);}
+
+    .intro h2{margin:0 0 10px 0;font-size:28px}
+    .intro p{color:var(--muted);line-height:1.6}
+
+    .stats{display:flex;gap:12px;margin-top:14px}
+    .stat{flex:1;background:transparent;padding:12px;border-radius:12px;text-align:center}
+    .stat strong{display:block;font-size:20px}
+    .stat span{font-size:12px;color:var(--muted)}
+
+    .side-hero img{width:100%;border-radius:12px;display:block}
+    .side-hero .cta{display:flex;gap:8px;margin-top:12px}
+    .btn{background:linear-gradient(90deg,var(--accent2),var(--accent1));padding:10px 14px;border-radius:12px;color:#04202b;font-weight:700;border:none;cursor:pointer}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+
+    section{margin-top:24px}
+    .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+    .concept{padding:16px;border-radius:12px}
+    .concept h3{margin:0 0 8px 0}
+    .concept p{margin:0;color:var(--muted);line-height:1.5}
+
+    .examples .filters{display:flex;gap:8px;margin-bottom:12px}
+    .chip{padding:8px 12px;border-radius:999px;background:transparent;border:1px solid rgba(255,255,255,0.03);cursor:pointer;color:var(--muted)}
+    .chip.active{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#04202b;border:0}
+
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+    .card--example{overflow:hidden}
+    .card--example img{width:100%;height:160px;object-fit:cover;display:block}
+    .card--example .body{padding:12px}
+    .card--example h4{margin:0 0 6px 0}
+    .card--example p{margin:0;color:var(--muted);font-size:14px}
+
+    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+    .gallery img{width:100%;height:120px;object-fit:cover;border-radius:10px;cursor:pointer}
+
+    footer{margin-top:28px;padding-top:18px;border-top:1px dashed rgba(255,255,255,0.03);display:flex;justify-content:space-between;align-items:center}
+    .small{color:var(--muted);font-size:13px}
+
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(5,10,18,0.6);z-index:50}
+    .modal .imgwrap{max-width:90%;max-height:90%;}
+    .modal img{width:100%;height:auto;border-radius:12px}
+
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr}
+      .gallery{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:520px){
+      .gallery{grid-template-columns:repeat(1,1fr)}
+      .brand h1{font-size:16px}
+    }
+
+    :root.light{--bg:#f7fbff;--card:#ffffff;--muted:#475569;--glass:rgba(2,6,23,0.02);color-scheme:light}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div>
+          <h1>Ecologia</h1>
+          <p>Conceitos • Exemplos • Aplicações</p>
+        </div>
+      </div>
+      <nav>
+        <a href="#conceitos">Conceitos</a>
+        <a href="#exemplos">Exemplos</a>
+        <a href="#aplicacoes">Aplicações</a>
+        <a href="#galeria">Imagens</a>
+        <button id="themeToggle" class="chip" title="Alternar tema">🌗 Tema</button>
+      </nav>
+    </header>
+
+    <main>
+      <div class="hero">
+        <div class="intro card">
+          <h2>O que é Ecologia?</h2>
+          <p>Ecologia é a ciência que estuda as relações entre os seres vivos e o ambiente onde vivem — incluindo interações entre organismos, fluxos de energia, ciclos de nutrientes e a dinâmica dos ecossistemas.</p>
+
+          <div class="stats">
+            <div class="stat">
+              <strong>3 níveis</strong>
+              <span>Organismos, populações, comunidades</span>
+            </div>
+            <div class="stat">
+              <strong>Fluxos</strong>
+              <span>Energia e matéria</span>
+            </div>
+            <div class="stat">
+              <strong>Equilíbrio</strong>
+              <span>Sustentabilidade</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="side-hero card">
+          <img src="floresta1.jpg" alt="floresta" />
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+            <div style="font-size:13px;color:var(--muted)">Foto: Floresta — Unsplash</div>
+            <div class="cta">
+              <button class="btn" onclick="scrollToSection('exemplos')">Ver exemplos</button>
+              <button class="btn secondary" onclick="scrollToSection('galeria')">Galeria</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- CONCEITOS FUNDAMENTAIS -->
+      <section id="conceitos">
+        <h3 style="margin:0 0 10px 0">Conceitos fundamentais</h3>
+        <div class="grid-3">
+          <div class="card concept">
+            <h3>Ecossistema</h3>
+            <p>Conjunto formado por uma comunidade de organismos e o ambiente físico em que interagem — por exemplo, uma lagoa, uma floresta ou um manguezal.</p>
+          </div>
+          <div class="card concept">
+            <h3>Biótopo e Biocenose</h3>
+            <p>Biótopo refere-se ao ambiente físico (solo, clima, água) e biocenose à comunidade de seres vivos que o habita.</p>
+          </div>
+          <div class="card concept">
+            <h3>Cadeias e teias alimentares</h3>
+            <p>Sequências de alimentação entre organismos que mostram transferência de energia — produtores → consumidores → decompositores.</p>
+          </div>
+          <div class="card concept">
+            <h3>Ciclos biogeoquímicos</h3>
+            <p>Movimento de elementos como água, carbono e nitrogênio entre organismos e o ambiente físico.</p>
+          </div>
+          <div class="card concept">
+            <h3>Resiliência e estabilidade</h3>
+            <p>Capacidade de um ecossistema resistir e recuperar-se de perturbações (incêndios, invasões, poluição).</p>
+          </div>
+          <div class="card concept">
+            <h3>Biodiversidade</h3>
+            <p>Variedade de vida em todos os níveis — genes, espécies e ecossistemas — essencial para a saúde dos sistemas naturais.</p>
+          </div>
+          <div class="card concept">
+            <h3>Sucessão ecológica</h3>
+            <p>Processo gradual de mudanças na composição das espécies de um ecossistema ao longo do tempo, até atingir um estágio de equilíbrio ou clímax.</p>
+          </div>
+          <div class="card concept">
+            <h3>Interações ecológicas</h3>
+            <p>Relações entre seres vivos, como competição, mutualismo, parasitismo e predação — fundamentais para o equilíbrio dos ecossistemas.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXEMPLOS -->
+      <section id="exemplos" class="examples">
+        <h3 style="margin:0 0 10px 0">Exemplos de ecossistemas e processos</h3>
+        <div class="filters">
+          <button class="chip active" data-filter="all">Todos</button>
+          <button class="chip" data-filter="aquatico">Aquático</button>
+          <button class="chip" data-filter="terrestre">Terrestre</button>
+          <button class="chip" data-filter="urbano">Urbano</button>
+        </div>
+
+        <div class="cards" id="cards">
+          <article class="card card--example" data-type="aquatico">
+            <img src="corais.avif" alt="recife" />
+            <div class="body">
+              <h4>Recifes de coral</h4>
+              <p>Ambientes marinhos com grande biodiversidade que dependem de águas limpas e temperatura estável. Importantes para proteção costeira e pesca.</p>
+            </div>
+          </article>
+
+          <article class="card card--example" data-type="terrestre">
+            <img src="florestas.avif" alt="floresta tropical" />
+            <div class="body">
+              <h4>Florestas tropicais</h4>
+              <p>Reservatórios gigantes de biodiversidade e carbono. Seu desmatamento altera ciclos hidrológicos e contribui para mudanças climáticas.</p>
+            </div>
+          </article>
+
+          <article class="card card--example" data-type="urbano">
+            <img src="parques2.avif" alt="cidade verde" />
+            <div class="body">
+              <h4>Infraestrutura verde</h4>
+              <p>Parques, telhados verdes e sistemas de drenagem sustentável reduzem enchentes, aumentam a biodiversidade e melhoram o microclima urbano.</p>
+            </div>
+          </article>
+
+          <article class="card card--example" data-type="aquatico">
+            <img src="zonas.avif" alt="praia" />
+            <div class="body">
+              <h4>Zonas costeiras</h4>
+              <p>Manguezais e estuários atuam como berçários para peixes e como barreiras contra tempestades — essenciais para comunidades humanas costeiras.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- APLICAÇÕES -->
+      <section id="aplicacoes">
+        <h3 style="margin:0 0 10px 0">Aplicações práticas</h3>
+        <div class="grid-3">
+          <div class="card concept">
+            <h3>Conservação e manejo</h3>
+            <p>Áreas protegidas, restauração ecológica e práticas agrícolas sustentáveis ajudam a preservar espécies e serviços ecossistêmicos.</p>
+          </div>
+          <div class="card concept">
+            <h3>Educação ambiental</h3>
+            <p>Programas escolares e comunitários que aumentam a consciência e mudam comportamentos para reduzir impactos ambientais.</p>
+          </div>
+          <div class="card concept">
+            <h3>Políticas públicas</h3>
+            <p>Legislação sobre resíduos, conservação e emissões, além de incentivos econômicos para práticas sustentáveis.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- GALERIA -->
+      <section id="galeria">
+        <h3 style="margin:0 0 10px 0">Galeria</h3>
+        <div class="gallery">
+          <img src="flor.avif" alt="folhas" />
+          <img src="ecologia3.avif" alt="floresta" />
+          <img src="cacheira.avif" alt="Recifes de coral">
+          <img src="oceano.avif" alt="cidade verde" />
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="small">© 2025 Ecologia — Todos os direitos reservados.</div>
+    </footer>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" onclick="closeModal(event)">
+    <div class="imgwrap"><img id="modalImg" src="" alt=""/></div>
+  </div>
+
+  <script>
+    function scrollToSection(id){
+      document.getElementById(id).scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    const chips = document.querySelectorAll('.examples .chip');
+    const cards = document.querySelectorAll('.card--example');
+    chips.forEach(c=>c.addEventListener('click',()=>{
+      chips.forEach(x=>x.classList.remove('active'));
+      c.classList.add('active');
+      const f = c.dataset.filter;
+      cards.forEach(card=>{
+        if(f==='all' || card.dataset.type===f){ card.style.display='block' } else { card.style.display='none' }
+      });
+    }));
+
+    document.querySelectorAll('.gallery img, .card--example img').forEach(img=>{
+      img.addEventListener('click', ()=>{
+        document.getElementById('modalImg').src = img.src;
+        document.getElementById('modal').style.display='flex';
+      });
+    });
+    function closeModal(e){ if(e.target.id==='modal' || e.target.id==='modalImg') document.getElementById('modal').style.display='none'; }
+
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', ()=>{
+      document.documentElement.classList.toggle('light');
+      themeToggle.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
